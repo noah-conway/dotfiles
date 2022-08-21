@@ -31,7 +31,6 @@ from libqtile.utils import guess_terminal
 from libqtile import extension
 from colors import nord
 
-from unicode_functions import PythonLogo
 
 mod = "mod1"
 
@@ -108,7 +107,18 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 ]
 
-groups = [Group(i) for i in "123456789"]
+#groups = [Group(i) for i in "123456789"]
+groups = [
+    Group("1", label="headset"),
+    Group("2", label="mic_external_on"),
+    Group("3", label="sports_esports"),
+    Group("4", label="attach_money"),
+    Group("5", label="code"),
+    Group("6", label="fiber_manual_record"),
+    Group("7", label="fiber_manual_record"),
+    Group("8", label="fiber_manual_record"),
+    Group("9", label="fiber_manual_record"),
+]
 
 for i in groups:
     keys.extend(
@@ -155,7 +165,7 @@ layouts = [
 
 widget_defaults = dict(
     #font="sans",
-    font="Bitstream Vera Sans",
+    font="BitstreamVeraSansMono NF",
     fontsize=14,
     padding=5,
 )
@@ -165,29 +175,74 @@ def create_spacer(space):
     return widget.Spacer(
                 length=space
             )
+
+def mk_icon(icon_name):
+    return widget.TextBox(
+            icon_name,
+            font="Material Icons",
+            fontsize=17,
+            padding=-2
+            )
     
 
 screens = [
     Screen(
         top=bar.Bar(
             [
-                create_spacer(2),
+                create_spacer(10),
+                widget.TextBox(
+                "",
+                foreground=colorscheme['white'],
+                fontsize=30,
+                ),
+
+                widget.TextBox(
+                "",
+                font="BitstreamVeraSansMono NF",
+                padding=0,
+                fontsize=30,
+                foreground=colorscheme['bg'],
+                background=colorscheme['white'],
+                ),
+                widget.Spacer(
+                    length=10,
+                    background=colorscheme['white'],
+                ), 
+
                 widget.GroupBox(
+                    font="Material Icons",
+                    fontsize=17,
                     borderwidth=0,
+                    background=colorscheme['white'],
                     active=colorscheme['blue'],
                     inactive=colorscheme['brightBlue'],
                     disable_drag = True,
                     block_highlight_text_color=colorscheme['red'],
                     highlight_method='text'
                 ),
-                widget.WindowName(),
+        
+                widget.TextBox(
+                    "",
+                    font="BitstreamVeraSansMono NF",
+                    padding=0,
+                    fontsize=30,
+                    foreground=colorscheme['white'],
+                ),
+ 
+                create_spacer(500),
+    
 
+                
+                mk_icon("update"),
                 widget.CheckUpdates(
     #                font="Dejavu-Sans-Book",
-                    display_format='Updates: {updates}',
-                    no_update_string='No Updates',
+                    display_format='{updates}',
+                    no_update_string='0',
                     distro='Arch'
                 ),
+
+                create_spacer(10),
+                mk_icon("computer"),
                 widget.CPU(),
                 widget.Memory(
                     
@@ -210,7 +265,7 @@ screens = [
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
         #set wallpaper
-        wallpaper='/home/noah/Pictures/nord_blue.jpeg',
+        wallpaper='/home/noah/.config/qtile/wallpaper/wallpaper.jpeg',
         wallpaper_mode='fill',
     ),
 ]
