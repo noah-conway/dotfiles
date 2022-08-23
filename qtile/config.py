@@ -228,8 +228,10 @@ screens = [
                     fontsize=30,
                     foreground=colorscheme['white'],
                 ),
+                widget.Spacer(
+                    length=bar.STRETCH,
+                ),
  
-                create_spacer(500),
     
 
                 
