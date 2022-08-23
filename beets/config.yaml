@@ -1,0 +1,15 @@
+directory: ~/Music/Library
+library: ~/.config/beets/library.db
+
+import:
+ move: yes
+ autotag: no
+
+plugins: embedart edit fetchart
+
+fetchart: 
+ cover_names: cover
+ sources: filesystem
+
+paths:
+ default: $genre/$albumartist/$year - $album/$track $title
