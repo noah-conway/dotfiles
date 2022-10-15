@@ -107,18 +107,18 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 ]
 
-groups = [Group(i) for i in "123456789"]
-#groups = [
-##    Group("1", label=""),
-#    Group("2", label=""),
-#    Group("3", label=""),
-#    Group("4", label=""),
-#    Group("5", label=""),
-#    Group("6", label=""),
-#    Group("7", label="ﴝ"),
-#    Group("8", label=""),
-#    Group("9", label=""),
-#]
+#groups = [Group(i) for i in "123456789"]
+groups = [
+    Group("1", label=""),
+    Group("2", label=""),
+    Group("3", label=""),
+    Group("4", label=""),
+    Group("5", label=""),
+    Group("6", label=""),
+    Group("7", label="ﴝ"),
+    Group("8", label=""),
+    Group("9", label=""),
+]
 
 for i in groups:
     keys.extend(
@@ -164,10 +164,10 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="NotoSans Nerd Font",
+    #font="sans",
+    font="DejaVuSansMono Nerd Font",
     fontsize=14,
-    margin_y=1.5,
-    #padding=5,
+    padding=5,
 )
 extension_defaults = widget_defaults.copy()
 
@@ -189,36 +189,69 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                create_spacer(7),
                 widget.TextBox(
                 "",
                 foreground=colorscheme['white'],
-                fontsize=17,
+                fontsize=20,
                 ),
                 create_spacer(2),
 
+
+                widget.TextBox(
+                "",
+                font="BitstreamVeraSansMono NF",
+                padding=0,
+                fontsize=30,
+                foreground=colorscheme['bg'],
+                background=colorscheme['white'],
+                ),
+                widget.Spacer(
+                    length=10,
+                    background=colorscheme['white'],
+                ), 
+
                 widget.GroupBox(
+                  #  font="Material Icons",
                     fontsize=17,
                     borderwidth=0,
                     #margin_x=5,
+                    background=colorscheme['white'],
                     active=colorscheme['blue'],
                     inactive=colorscheme['brightBlue'],
                     disable_drag = True,
                     block_highlight_text_color=colorscheme['red'],
-                    highlight_method='text',
-                    padding_x=1,
-                    padding_y=500,
-                    margin_y=1.5,
+                    highlight_method='text'
                 ),
-
+        
+                widget.TextBox(
+                    "",
+                    font="BitstreamVeraSansMono NF",
+                    padding=0,
+                    fontsize=30,
+                    foreground=colorscheme['white'],
+                ),
                 widget.Spacer(
                     length=bar.STRETCH,
                 ),
  
 
+                widget.WidgetBox(widgets=[
+                    widget.CPU(
+                    ),
+                    widget.Memory(
+                    ),
+                    ] 
+                ),
+                widget.TextBox(
+                "ﮮ", 
+                foreground=colorscheme['white'],
+                fontsize=20,
+                ),
                 widget.CheckUpdates(
     #                font="Dejavu-Sans-Book",
-                    display_format='ﮮ {updates}',
-                    no_update_string='0 ﮮ',
+                    display_format='{updates}',
+                    no_update_string='0',
                     distro='Arch'
                 ),
 
@@ -226,7 +259,7 @@ screens = [
                 create_spacer(10),
                     
                     
-                #widget.BatteryIcon(), 
+                widget.BatteryIcon(), 
 
                 
                 widget.Systray(
