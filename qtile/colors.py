@@ -1,4 +1,3 @@
-
 nord = {
 
     "black":"#3B4252",
@@ -22,3 +21,25 @@ nord = {
 
 }
 
+bitmute = {
+
+    "black":"#282828",
+    "red":"#b78969",
+    "green":"#719d72",
+    "yellow":"#909858",
+    "blue":"#68668f",
+    "purple":"#966894",
+    "cyan":"#688891",
+    "white":"#8e8e8e",
+    "brightBlack":"#494949",
+    "brightRed":"#b87e7e",
+    "brightGreen":"#839d84",
+    "brightYellow":"#919864",
+    "brightBlue":"#73719f",
+    "brightPurple":"#987397",
+    "brightCyan":"#758c93",
+    "brightWhite":"#aeaeae",
+    "fg":"#ffffff",
+    "bg":"#000000",
+
+}

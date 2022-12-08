@@ -29,16 +29,18 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile import extension
-from colors import nord
+from colors import bitmute
+import subprocess #for keybinding shell commands
 
 
 mod = "mod1"
 
 #terminal = guess_terminal()
 terminal = "alacritty"
-colorscheme = nord
+colorscheme = bitmute
 gap_size = 7
 browser = "firefox"
+calculator = "galculator"
 
 @hook.subscribe.startup_once
 def start_once():
@@ -80,6 +82,14 @@ keys = [
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
 
+
+    # Volume & Media Keys
+
+    Key([], "XF86AudioLowerVolume", lazy.spawn("pactl -- set-sink-volume 0 -10%"), desc="Lower Volume by 5%"),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl -- set-sink-volume 0 +10%"), desc="Raise Volume by 5%"),
+    Key([], "XF86AudioMute", lazy.spawn("pactl -- set-sink-mute 0 toggle"), desc="Audio Mute"),
+
+
 #    Key(
 #        [mod, "shift"],
 #        "Return",
@@ -88,16 +98,13 @@ keys = [
 #    ),
 
     # Launch Programs
-    Key([mod], 'd', lazy.run_extension(extension.DmenuRun(
-        dmenu_prompt=">",
-        dmenu_font="Andika-8",
-        background="#15181a",
-        foreground="#00ff00",
-        selected_background="#079822",
-        selected_foreground="#fff",
-    ))),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn(browser), desc="Launch browser"),
+    Key([mod], "t", lazy.spawn("dmenu-bluetooth"), desc="Launch bluetooth menu"),
+    Key([mod], "w", lazy.spawn("rofi -show window"), desc="Launch browser"),
+    Key([mod], "d", lazy.spawn("rofi -theme dmenu -show run"), desc="Launch browser"),
+    Key([], "XF86Calculator", lazy.spawn(calculator), desc="Launch calculator"),
+    
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
@@ -223,7 +230,10 @@ screens = [
                 ),
 
 
-                create_spacer(10),
+               # create_spacer(10),
+               widget.Battery(
+
+                ),
                     
                     
                 #widget.BatteryIcon(), 
@@ -243,7 +253,7 @@ screens = [
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
         #set wallpaper
-        wallpaper='/home/noah/.config/qtile/wallpaper/wallpaper.jpeg',
+        wallpaper='/home/noah/.config/qtile/wallpaper/wallpaper.jpg',
         wallpaper_mode='fill',
     ),
 ]
@@ -270,6 +280,7 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        Match(title=calculator), # calculator
     ]
 )
 auto_fullscreen = True
